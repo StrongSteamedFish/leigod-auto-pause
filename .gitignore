@@ -1,0 +1,4 @@
+/node_modules/
+/app/renderer/vue/index/node_modules/
+/app/renderer/pages/
+/dist/

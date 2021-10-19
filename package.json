@@ -1,0 +1,60 @@
+{
+  "name": "leigod-auto-pause",
+  "version": "1.0.0",
+  "description": "A small program to auto pause leigod.",
+  "main": "app/main/index.js",
+  "scripts": {
+    "start": "concurrently \"npm run start:vue\" \"wait-on http://localhost:8080 && npm run start:electron\"",
+    "start:vue": "cd app/renderer/vue/index && npm run serve",
+    "start:electron": "electron .",
+    "build:vue": "cd app/renderer/vue/index && npm run build",
+    "build:electron": "electron-builder"
+  },
+  "keywords": [
+    "leigod",
+    "auto",
+    "pause"
+  ],
+  "author": "SteamFish",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^6.3.0",
+    "electron": "^15.2.0",
+    "electron-builder": "^22.13.1",
+    "wait-on": "^6.0.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.4",
+    "electron-is-dev": "^2.0.0",
+    "electron-store": "^8.0.1",
+    "timer.js": "^1.0.4"
+  },
+  "build":{
+    "productName":"leigod-auto-pause",
+    "appId":"steamfish.cn.leigod-auto-pause",
+    "directories":{
+      "output":"dist"
+    },
+    "nsis":{
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./app/icon.ico",
+      "installerHeaderIcon": "./app/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "雷神自动暂停"
+    },
+    "win": {
+      "icon": "./app/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
+      ]
+    }
+  }
+}
