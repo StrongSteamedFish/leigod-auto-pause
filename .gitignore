@@ -1,4 +1,4 @@
 /node_modules/
-/app/renderer/vue/index/node_modules/
-/app/renderer/pages/index/
+/app/renderer/vue/node_modules/
+/app/renderer/pages/
 /dist/

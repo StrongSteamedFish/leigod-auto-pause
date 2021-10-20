@@ -5,9 +5,9 @@
   "main": "app/main/index.js",
   "scripts": {
     "start": "concurrently \"npm run start:vue\" \"wait-on http://localhost:8080 && npm run start:electron\"",
-    "start:vue": "cd app/renderer/vue/index && npm run serve",
+    "start:vue": "cd app/renderer/vue && npm run serve",
     "start:electron": "electron .",
-    "build:vue": "cd app/renderer/vue/index && npm run build",
+    "build:vue": "cd app/renderer/vue && npm run build",
     "build:electron": "electron-builder",
     "build": "npm run build:vue && npm run build:electron"
   },

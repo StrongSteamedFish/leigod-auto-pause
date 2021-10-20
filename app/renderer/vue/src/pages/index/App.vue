@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import LeigodAutoPause from './components/LeigodAutoPause.vue'
+import LeigodAutoPause from '../../components/LeigodAutoPause.vue'
 
 export default {
   name: 'App',

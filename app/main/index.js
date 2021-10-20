@@ -21,8 +21,32 @@ ipcMain.on('stopAutoPuaseFirst',(e)=>{
   })
 })
 
+const createSettingWindow = (mainWindow) => {
+  const settingWindow = new BrowserWindow({
+    parent: mainWindow,
+    modal: true,
+    width: 550,
+    height: 350,
+    resizable :false,
+    icon : path.resolve(__dirname, '../icon.ico'),
+    title: '设置',
+    webPreferences:{
+      nodeIntegration:true,
+      contextIsolation:false
+    }
+  });
+  if(isDev){
+    settingWindow.loadURL('http://localhost:8080/setting.html');
+    settingWindow.webContents.openDevTools();
+  }else{
+    settingWindow.loadFile(path.resolve(__dirname,'../renderer/pages/setting.html'));
+  }
+  settingWindow.menuBarVisible = false;
+}
+
 ipcMain.on('setting',(e)=>{
-  let program = dialog.showOpenDialogSync(e.sender.getOwnerBrowserWindow(), {
+  createSettingWindow(e.sender.getOwnerBrowserWindow())
+  /* let program = dialog.showOpenDialogSync(e.sender.getOwnerBrowserWindow(), {
     title:'选择要监听的可执行文件',
     filters:[
       {name:'可执行文件',extensions:['exe']}
@@ -38,7 +62,7 @@ ipcMain.on('setting',(e)=>{
     }else{
       store.set('listenList',listenList || [programName]);
     }
-  }
+  } */
 })
 
 ipcMain.on('setLeigodPath',(e)=>{
@@ -69,10 +93,10 @@ const createWindow = () => {
     }
   });
   if(isDev){
-    mainWindow.loadURL('http://localhost:8080/');
+    mainWindow.loadURL('http://localhost:8080/index.html');
     mainWindow.webContents.openDevTools();
   }else{
-    mainWindow.loadFile(path.resolve(__dirname,'../renderer/pages/index/index.html'));
+    mainWindow.loadFile(path.resolve(__dirname,'../renderer/pages/index.html'));
   }
   mainWindow.menuBarVisible = false;
   app.setAppUserModelId("雷神自动暂停");
