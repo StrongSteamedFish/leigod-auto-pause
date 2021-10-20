@@ -1,6 +1,6 @@
 {
   "name": "leigod-auto-pause",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A small program to auto pause leigod.",
   "main": "app/main/index.js",
   "scripts": {

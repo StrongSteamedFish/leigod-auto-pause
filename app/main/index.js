@@ -13,8 +13,16 @@ ipcMain.handle('getinfo', (e, name)=>{
   return store.get(name);
 })
 
+ipcMain.on('stopAutoPuaseFirst',(e)=>{
+  dialog.showMessageBox(e.sender.getOwnerBrowserWindow(), {
+    type:'info',
+    title:'雷神自动暂停',
+    message:'请先关闭自动暂停再打开设置页面！'
+  })
+})
+
 ipcMain.on('setting',(e)=>{
-  let program = dialog.showOpenDialogSync({
+  let program = dialog.showOpenDialogSync(e.sender.getOwnerBrowserWindow(), {
     title:'选择要监听的可执行文件',
     filters:[
       {name:'可执行文件',extensions:['exe']}
@@ -34,7 +42,7 @@ ipcMain.on('setting',(e)=>{
 })
 
 ipcMain.on('setLeigodPath',(e)=>{
-  let program = dialog.showOpenDialogSync({
+  let program = dialog.showOpenDialogSync(e.sender.getOwnerBrowserWindow(), {
     title:'选择雷神加速器执行文件',
     defaultPath:'C:\\Program Files (x86)\\LeiGod_Acc\\leigod.exe',
     filters:[

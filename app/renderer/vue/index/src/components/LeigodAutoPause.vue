@@ -512,11 +512,15 @@ export default {
         },
         // 设置
         async setting(){
+            // 如果正在启用自动暂停，提示请关闭自动暂停
+            if (this.listenSwitch){
+                ipcRenderer.send('stopAutoPuaseFirst');
+                return;
+            }
             this.stopAutoPause();
-            // 打开选择文件窗口
-            console.log('打开选择文件窗口');
+            // 打开设置页面
+            console.log('打开设置页面');
             await ipcRenderer.send('setting');
-            this.refreshPage();
         },
         // 启动雷神加速器
         async startLeigod(){
