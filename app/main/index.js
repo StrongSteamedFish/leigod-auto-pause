@@ -45,8 +45,11 @@ const createSettingWindow = (mainWindow) => {
 }
 
 ipcMain.on('setting',(e)=>{
-  createSettingWindow(e.sender.getOwnerBrowserWindow())
-  /* let program = dialog.showOpenDialogSync(e.sender.getOwnerBrowserWindow(), {
+  createSettingWindow(e.sender.getOwnerBrowserWindow());
+})
+
+ipcMain.handle('chooseFile',(e)=>{
+  let program = dialog.showOpenDialogSync(e.sender.getOwnerBrowserWindow(), {
     title:'选择要监听的可执行文件',
     filters:[
       {name:'可执行文件',extensions:['exe']}
@@ -54,15 +57,14 @@ ipcMain.on('setting',(e)=>{
     properties:['openFile', 'showHiddenFiles']
   });
   if(program){
-    let programName = path.basename(program[0]);
-    let listenList = store.get('listenList');
-    if (listenList && listenList.indexOf(programName) == -1){
-      listenList.push(programName);
-      store.set('listenList',listenList);
-    }else{
-      store.set('listenList',listenList || [programName]);
-    }
-  } */
+    return path.basename(program[0]);
+  }else{
+    return false;
+  }
+})
+
+ipcMain.on('closeSettingWindows',(e)=>{
+  e.sender.getOwnerBrowserWindow().close();
 })
 
 ipcMain.on('setLeigodPath',(e)=>{
@@ -79,7 +81,14 @@ ipcMain.on('setLeigodPath',(e)=>{
   }
 })
 
+const setDefaultConfig = () => {
+  store.set("sleepTime", store.get("sleepTime") || 1);
+  store.set("updateCircleTime", store.get("updateCircleTime") || 20);
+  store.set("listenList", store.get("listenList") || []);
+}
+
 const createWindow = () => {
+  setDefaultConfig();
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 350,

@@ -64,10 +64,6 @@ const crypto = window.require('crypto');
 const { existsSync } = window.require('fs');
 const path = window.require('path');
 
-const DEFAULT_SLEEP_TIME = 1;
-const DEFAULT_UPDATE_CIRCLE_TIME = 20;
-const DEFAULT_LISTEN_LIST = [];
-
 // 读取和写入本地储存的方法
 async function getStorage(name){
     return await ipcRenderer.invoke('getinfo',name);
@@ -430,7 +426,7 @@ export default {
         // 判断监听的程序是否在运行
         async programIsRunning(){
             let result = [];
-            let listenList = await getStorage('listenList') || DEFAULT_LISTEN_LIST;
+            let listenList = await getStorage('listenList');
             let programList = execSync('tasklist', {encoding:'utf8'});
             listenList.forEach(i => {
                 let re = new RegExp(i, 'gi');
@@ -441,7 +437,7 @@ export default {
         },
         // 程序监听器
         async programListener(programState){
-            let sleepTime = await getStorage('sleepTime') || DEFAULT_SLEEP_TIME;
+            let sleepTime = await getStorage('sleepTime');
             if(this.listenSwitch){
                 console.log('程序监听中……');
                 if(programState){
@@ -457,7 +453,7 @@ export default {
         async programExitListener(){
             let that = this;
             let programState = false;
-            let updateCircleTime = await getStorage('updateCircleTime') || DEFAULT_UPDATE_CIRCLE_TIME;
+            let updateCircleTime = await getStorage('updateCircleTime');
             let exitListenerTimer = new Timer({
                 ontick:async () => {
                     programState = await that.programIsRunning();
