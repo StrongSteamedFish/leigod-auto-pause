@@ -53,7 +53,7 @@
                     <img class="label_bnt_img" src="../assets/add.png" alt="add">
                 </button>
             </div>
-            <!-- <p class="setting_tips">软件会在被监听的游戏全部退出最多该设定秒数后暂停雷神加速器计时该值越大，允许玩家临时退出或切换被监听游戏的时间就越长。默认值25。</p> -->
+            <!-- <p class="setting_tips">软件会在被监听的游戏全部退出最多该设定秒数后暂停雷神加速器计时该值越大，允许玩家临时退出或切换被监听游戏的时间就越长。默认值20。</p> -->
         </div>
         <div class="button_box">
             <button @click="confirm" class="setting_bnt yes">确定</button>
